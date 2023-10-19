@@ -33,3 +33,5 @@ pika_Bytes pika_appendLE16(pika_Bytes dst, unsigned short v);
 pika_Bytes pika_appendLE32(pika_Bytes dst, unsigned long v);
 
 pika_Bytes pika_makeBytes(int cap);
+
+void pika_putLE32(char *dst, unsigned long v);

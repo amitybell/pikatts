@@ -75,6 +75,13 @@ pika_Bytes pika_appendLE32(pika_Bytes dst, unsigned long v) {
   return pika_append(dst, src);
 }
 
+void pika_putLE32(char *dst, unsigned long v) {
+  dst[0] = (v & 0x000000FF);
+  dst[1] = ((v & 0x0000FF00) >> 8);
+  dst[2] = ((v & 0x00FF0000) >> 16);
+  dst[3] = ((v & 0xFF000000) >> 24);
+}
+
 pika_Bytes pika_makeBytes(int cap) {
   cap += 1; // + null byte
   pika_Bytes b = {.buf = malloc(cap), .len = 0, .cap = cap};

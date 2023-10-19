@@ -17,3 +17,5 @@
 #include "pikabytes.h"
 
 pika_Bytes pika_makeWavHeader();
+
+void pika_finalizeWavHeader(pika_Bytes wav);

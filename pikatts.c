@@ -318,5 +318,11 @@ pika_Error pika_synthesize(pika_Context *ctx, const char *text,
       return err;
     }
   }
-  return pika_flush(ctx, outWav);
+
+  pika_Error err = pika_flush(ctx, outWav);
+  if (err.status != 0) {
+    return err;
+  }
+  pika_finalizeWavHeader(*outWav);
+  return pika_OK;
 }

@@ -30,32 +30,25 @@ pika_Bytes pika_makeWavHeader() {
   // real file sizes are usually at least a few KiB, so just allocate some extra
   pika_Bytes hdr = pika_makeBytes(4 << 10);
 
-  // picoos_WriteStr(f, (picoos_char *)"RIFF");
   hdr = pika_appendString(hdr, "RIFF");
-  // picoos_write_le_uint32(f, dataLength + 36);
   hdr = pika_appendLE32(hdr, dataLength + 36);
-  // picoos_WriteStr(f, (picoos_char *)"WAVE");
   hdr = pika_appendString(hdr, "WAVE");
-  // picoos_WriteStr(f, (picoos_char *)"fmt ");
   hdr = pika_appendString(hdr, "fmt ");
-  // picoos_write_le_uint32(f, 16);
   hdr = pika_appendLE32(hdr, 16);
-  // picoos_write_le_uint16(f, formatTag);
   hdr = pika_appendLE16(hdr, formatTag);
-  // picoos_write_le_uint16(f, 1);
   hdr = pika_appendLE16(hdr, 1);
-  // picoos_write_le_uint32(f, sampleRate);
   hdr = pika_appendLE32(hdr, sampleRate);
-  // picoos_write_le_uint32(f, bytesPerSec);
   hdr = pika_appendLE32(hdr, bytesPerSec);
-  // picoos_write_le_uint16(f, blockAlign);
   hdr = pika_appendLE16(hdr, blockAlign);
-  // picoos_write_le_uint16(f, sampleSize);
   hdr = pika_appendLE16(hdr, sampleSize);
-  // picoos_WriteStr(f, (picoos_char *)"data");
   hdr = pika_appendString(hdr, "data");
-  // picoos_write_le_uint32(f, dataLength);
   hdr = pika_appendLE32(hdr, dataLength);
-  // (*hdrSize) = 44;
   return hdr;
+}
+
+void pika_finalizeWavHeader(pika_Bytes wav) {
+  // file size section comes after "RIFF"
+  pika_putLE32(4 + wav.buf, (unsigned long)wav.len);
+  // data size section comes a the end of the 44 byte header
+  pika_putLE32(wav.buf + 44 - 4, (unsigned long)wav.len - 44);
 }
