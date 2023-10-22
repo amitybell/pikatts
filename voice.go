@@ -1,7 +1,7 @@
 package pikatts
 
 import (
-	"github.com/silenttwin/pikatts/internal/lingware"
+	"github.com/amitybell/pikatts/internal/lingware"
 )
 
 // Voice hold details about the text-to-speech voice files

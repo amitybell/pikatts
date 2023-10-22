@@ -11,7 +11,7 @@ A sample is available in [testdata/sample.wav](testdata/sample.wav)
 ```go
 
 import (
-	"github.com/silenttwin/pikatts"
+	"github.com/amitybell/pikatts"
 	"log"
 )
 
